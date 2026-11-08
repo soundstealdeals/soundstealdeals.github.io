@@ -4,6 +4,9 @@
   if (!art) return;
   var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var tilt = art.querySelector(".tilt");
+  if ("IntersectionObserver" in window) {  // pause every hero animation while it's off screen
+    new IntersectionObserver(function (es) { art.classList.toggle("paused", !es[0].isIntersecting); }).observe(art);
+  }
 
   if (!calm && tilt && window.matchMedia("(pointer: fine)").matches) {
     art.addEventListener("mousemove", function (e) {

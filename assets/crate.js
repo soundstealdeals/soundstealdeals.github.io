@@ -110,6 +110,7 @@
       });
     });
     requestAnimationFrame(function () { player.classList.add('open'); });
+    startSpin();  // the spin loop only runs while a record is out
     setTimeout(function () { if (open) player.classList.add('out'); }, 450);
     setTimeout(function () { if (open) { player.classList.add('arm'); if (S.play) S.play(it.hue, rpm); } }, 1150);
     player.querySelector('.pl-close').focus();
@@ -132,8 +133,9 @@
     spin += (target - spin) * Math.min(1, dt * 1.6);
     angle = (angle + spin * dt) % 360;
     disc.style.transform = 'rotate(' + angle + 'deg)';
-    requestAnimationFrame(tick);
+    if (open || spin > 0.5) requestAnimationFrame(tick); else { running = false; spin = 0; }
   }
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(tick);
+  var running = false, still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function startSpin() { if (!running && !still) { running = true; last = performance.now(); requestAnimationFrame(tick); } }
   layout();
 })();
