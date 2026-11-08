@@ -18,6 +18,8 @@
   function money(n) { return '$' + Number(n).toFixed(2); }
   function face(it) {
     var tag = it.kind === 'release' ? 'Out ' + it.date : it.off ? '−' + it.off + '%' : money(it.price);
+    if (it.img) return '<div class="sl-face pic' + (it.cover ? '' : ' gear') + '"><img src="' + esc(it.img) +
+      '" alt="" decoding="async" referrerpolicy="no-referrer"><span class="sl-tag">' + esc(tag) + '</span></div>';
     return '<div class="sl-face p' + (it.hue % 4) + '" style="--h:' + it.hue + '"><span class="sl-artist">' +
       esc(it.artist || it.cat) + '</span><span class="sl-title">' + esc(it.title) + '</span><span class="sl-tag">' +
       esc(tag) + '</span></div>';
@@ -90,11 +92,12 @@
       (it.old ? '<span class="was">' + money(it.old) + '</span><span class="save">Save ' + money(it.old - it.price) +
       '</span>' : '') + '</div><p class="pl-asof">Price checked ' + esc(it.when) + ', may change</p>'
       : '<p class="pl-out">Out ' + esc(it.date) + '</p>';
+    var credit = it.credit ? '<p class="pl-credit">' + esc(it.credit) + '</p>' : '';
     return '<span class="eyebrow">' + esc(it.artist || it.cat) + '</span><h2>' + esc(it.title) + '</h2>' + price +
       '<div class="pl-rpm" role="group" aria-label="Speed"><button type="button" data-rpm="33" class="on">33⅓</button>' +
       '<button type="button" data-rpm="45">45</button></div><div class="pl-acts"><a class="btn" href="' +
       esc(it.amazon) + '" rel="sponsored nofollow noopener">' + (deal ? 'View on Amazon' : 'Pre-order on Amazon') +
-      ' →</a><a class="pl-more" href="' + esc(it.url) + '">Details</a></div>';
+      ' →</a><a class="pl-more" href="' + esc(it.url) + '">Details</a></div>' + credit;
   }
   function pull() {
     var it = items[c];
