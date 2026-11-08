@@ -326,3 +326,5 @@ background:#1a1715;box-shadow:0 12px 26px -10px rgba(0,0,0,.6),inset 0 0 0 1px r
 .dart .cov.gear{width:100%}.pic-credit{text-align:center;margin-top:12px}
 .fav-card.ended .cov{filter:grayscale(.85);opacity:.65}
 @media (max-width:520px){.cov{flex-basis:86px;height:86px}}
+.cov.own img{object-fit:cover}
+.cov.own img{object-fit:cover}
