@@ -1,0 +1,42 @@
+/* Hero "v2" (default): a turntable that feels alive. Not loaded when hero_variant = "v1". */
+.hero-art.v2{container-type:inline-size}
+.v2 .tilt{position:absolute;inset:0;transform-style:preserve-3d;
+transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+
+/* equalizer ring */
+.v2 .eq i{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(var(--a))}
+.v2 .eq i::before{content:"";position:absolute;left:-.42cqw;bottom:46.5cqw;width:.84cqw;height:5.2cqw;border-radius:1cqw;
+background:linear-gradient(to top,var(--accent),var(--accent-2));transform-origin:50% 100%;opacity:.9;
+animation:eqbar var(--s) ease-in-out var(--dl) infinite alternate;box-shadow:0 0 1.2cqw color-mix(in srgb,var(--accent) 60%,transparent)}
+@keyframes eqbar{from{transform:scaleY(.12)}to{transform:scaleY(var(--pk))}}
+
+/* sound-wave pulses */
+.v2 .waves span{position:absolute;inset:6%;border-radius:50%;border:2px solid var(--accent);opacity:0;
+animation:wave 3.6s cubic-bezier(.2,.6,.2,1) infinite}
+.v2 .waves span:nth-child(2){animation-delay:1.2s}.v2 .waves span:nth-child(3){animation-delay:2.4s}
+@keyframes wave{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.32);opacity:0}}
+
+/* the record "breathes" with the beat */
+.v2 .platter{animation:beat 1.2s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.012)}}
+.v2 .sheen{transform:rotate(var(--sheen,0deg));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+
+/* floating notes */
+.v2 .notes span{position:absolute;left:58%;top:30%;font:700 4.4cqw/1 "Fraunces",serif;color:var(--accent-2);opacity:0;
+text-shadow:0 0 2cqw color-mix(in srgb,var(--accent) 70%,transparent);animation:note 7s ease-in infinite;animation-delay:calc(var(--n) * 1.4s)}
+.v2 .notes span:nth-child(2n){left:30%;top:40%}.v2 .notes span:nth-child(3n){left:70%;top:52%}
+@keyframes note{0%{transform:translate(0,0) rotate(-10deg) scale(.6);opacity:0}15%{opacity:.95}
+100%{transform:translate(9cqw,-34cqw) rotate(18deg) scale(1.15);opacity:0}}
+
+/* price-drop tags falling past the record */
+.v2 .drops span{position:absolute;top:4%;left:calc(14% + var(--k) * 22%);padding:.8cqw 1.8cqw;border-radius:99px;
+font:800 2.9cqw/1 "Inter",sans-serif;color:var(--save);background:var(--save-bg);border:1px solid color-mix(in srgb,var(--save) 30%,transparent);
+backdrop-filter:blur(8px);opacity:0;animation:drop 8s cubic-bezier(.45,.05,.55,.95) infinite;animation-delay:calc(var(--k) * 2s)}
+@keyframes drop{0%{transform:translateY(0) rotate(-6deg);opacity:0}12%{opacity:1}
+70%{opacity:1}100%{transform:translateY(80cqw) rotate(8deg);opacity:0}}
+
+/* chip that cycles through deals */
+.v2 .chip-cycle .chip-off,.v2 .chip-cycle .t{transition:opacity .35s,transform .45s cubic-bezier(.34,1.56,.64,1)}
+.v2 .chip-cycle.out .chip-off,.v2 .chip-cycle.out .t{opacity:0;transform:translateY(6px)}
+.v2 .chip-cycle .idx{font-weight:600;color:var(--muted);margin-left:4px;font-size:11.5px}
+.v2 .chip{z-index:3}
