@@ -9,13 +9,14 @@
 
   window.TTDeck = function (el, hooks) {
     var q = function (s) { return el.querySelector(s); };
-    var rec = q('.rec'), arm = q('.arm'), wave = q('.wave'), time = q('.time'), play = q('.play');
+    var rec = q('.rec'), arm = q('.tt-arm'), wave = q('.wave'), time = q('.time'), play = q('.play');
     var self = {el: el, player: null, item: null, rpm: 33, playing: false, volume: 100};
     var angle = 0, spin = 0, last = 0, running = false, cueAt = 0, drag = null, bars = [];
 
     function cover(img, id) {  // big thumbnail if YouTube has one, else the standard one (zoomed past its black bars)
       img.hidden = false; img.classList.remove('hq');
-      img.onerror = function () { img.onerror = null; img.classList.add('hq'); img.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'; };
+      img.onerror = function () { img.onerror = img.onload = null; img.classList.add('hq'); img.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'; };
+      img.onload = function () { if (img.naturalWidth <= 120) img.onerror(); };  // YouTube's grey "no big thumbnail" image
       img.src = 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg';
     }
     function drawWave(id) {
@@ -67,7 +68,7 @@
 
     self.load = function (item, autoplay) {
       self.item = item; el.classList.add('loaded');
-      cover(q('.label img'), item.id); cover(q('.sleeve img'), item.id);
+      cover(q('.tt-label img'), item.id); cover(q('.sleeve img'), item.id);
       drawWave(item.id);
       hooks.show(self, item);
       hooks.youtube(function () {

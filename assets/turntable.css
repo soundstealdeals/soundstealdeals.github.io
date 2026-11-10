@@ -24,39 +24,46 @@
 .tt-name b{font-size:14px}.tt-name small{font-size:12px;color:#8d847a}.dur{font-size:12px;color:#c9bfb2}
 .trk button{border:0;background:rgba(255,255,255,.08);color:#efe8dc;border-radius:8px;padding:3px 8px;font-size:12px}
 .trk .rm{background:none;color:#8d847a;font-size:16px}.empty-list{font-size:13px;color:#8d847a;margin:0}
-/* decks */
+/* decks. Every part has its own tt-/deck class: the site's style.css already uses .platter/.label/.arm. */
 .tt-decks{display:grid;min-width:0}
-.deck{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 370px;grid-template-areas:"tt info" "wave info";min-width:0}
-.platter{grid-area:tt;position:relative;display:grid;place-items:center;padding:34px 30px 10px;z-index:2}
-.rec{position:relative;width:min(430px,100%);aspect-ratio:1;border-radius:50%;cursor:grab;touch-action:none;user-select:none;
+.deck{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 370px;grid-template-rows:1fr auto;
+  grid-template-areas:"tt info" "wave info";min-width:0}
+.tt-platter{grid-area:tt;display:grid;place-items:center;padding:34px 30px 8px;min-width:0}
+.tt-plinth{position:relative;width:min(460px,100%);aspect-ratio:1;border-radius:26px;padding:7%;
+  background:linear-gradient(145deg,#24201c,#171411);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),
+  inset 0 0 0 1px rgba(255,255,255,.04),0 30px 60px -30px #000}
+.rec{position:relative;width:100%;height:100%;border-radius:50%;cursor:grab;touch-action:none;user-select:none;
   background:conic-gradient(from 20deg,transparent 0 8%,rgba(255,255,255,.13) 13%,transparent 19% 50%,rgba(255,255,255,.08) 63%,transparent 69%),
   repeating-radial-gradient(circle,#0c0b0a 0 1.2px,#22201d 1.2px 2.2px,#0e0d0c 2.2px 3.4px);
-  box-shadow:0 0 0 2px #000,0 40px 80px -20px #000,inset 0 0 0 10px #0a0909}
+  box-shadow:0 0 0 2px #000,0 24px 40px -14px #000,inset 0 0 0 8px #0a0909}
 .scratching .rec{cursor:grabbing}.rec:focus-visible{outline:3px solid var(--ac);outline-offset:6px}
-.label{position:absolute;inset:32%;border-radius:50%;overflow:hidden;background:radial-gradient(circle,#2a2622,#141210);
+.tt-label{position:absolute;inset:32%;border-radius:50%;overflow:hidden;background:radial-gradient(circle,#2a2622,#141210);
   box-shadow:0 0 0 3px rgba(0,0,0,.6)}
-.label img,.sleeve img{width:100%;height:100%;object-fit:cover;display:block}
-.label img.hq,.sleeve img.hq{transform:scale(1.34)}
-.spindle{position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px;border-radius:50%;
+.tt-label img,.sleeve img{width:100%;height:100%;object-fit:cover;display:block}
+.tt-label img.hq,.sleeve img.hq{transform:scale(1.34)}
+.spindle{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px;border-radius:50%;
   background:radial-gradient(circle at 35% 35%,#eee,#888 60%,#444)}
-.arm{position:absolute;right:4%;top:2%;height:72%;transform-origin:75% 10%;transform:rotate(-30deg);
-  transition:transform .9s cubic-bezier(.4,.1,.2,1);pointer-events:none;filter:drop-shadow(0 12px 14px rgba(0,0,0,.5))}
-.spinning .arm,.scratching .arm{transform:rotate(2deg)}
+/* the arm's pivot sits in the plinth's top-right corner; at rest it points down the side, playing it swings in */
+.tt-arm{position:absolute;right:1%;top:1%;height:66%;transform-origin:75% 10%;transform:rotate(-9deg);
+  transition:transform .9s cubic-bezier(.4,.1,.2,1);pointer-events:none;filter:drop-shadow(0 10px 12px rgba(0,0,0,.5))}
+.spinning .tt-arm,.scratching .tt-arm{transform:rotate(9deg)}
 .arm-base{fill:#3d3631;stroke:#bdb6aa;stroke-width:4}.arm-rod{fill:none;stroke:#d8d1c5;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
 .arm-head{fill:#efe8dc}
-.deck-tag{position:absolute;left:22px;top:22px;font:800 13px/1 Inter,sans-serif;letter-spacing:.2em;color:#8d847a}
+.deck-tag{position:absolute;left:16px;top:14px;font:800 12px/1 Inter,sans-serif;letter-spacing:.2em;color:#6f675e}
 .info{grid-area:info;position:relative;background:var(--cr);color:var(--ink2);padding:30px 28px 26px 74px;
-  clip-path:polygon(16% 0,100% 0,100% 100%,0 100%);display:flex;flex-direction:column;gap:10px;min-width:0}
-.sleeve{position:relative;width:150px;aspect-ratio:1;border-radius:6px;overflow:hidden;background:#d9d0c1;
+  clip-path:polygon(16% 0,100% 0,100% 100%,0 100%);display:flex;flex-direction:column;gap:16px;min-width:0}
+.info-head,.info-text{display:flex;flex-direction:column;gap:10px;min-width:0}
+.sleeve{position:relative;flex:none;width:150px;aspect-ratio:1;border-radius:6px;overflow:hidden;background:#d9d0c1;
   box-shadow:0 18px 30px -14px rgba(40,20,5,.5);display:grid;place-items:center}
 .sleeve span{position:absolute;font:700 12px/1 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8c8174}
 .loaded .sleeve span{display:none}
-.t-artist{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8c4a22;margin-top:6px}
-.t-title{font:800 26px/1.08 Fraunces,serif;margin:0;color:var(--ink2);overflow-wrap:anywhere}
-.acts{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.acts .play{width:48px;height:48px;border-radius:50%;border:0;background:var(--ink2);color:var(--cr);font-size:16px;
+.t-artist{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8c4a22}
+.t-title{font:800 26px/1.08 Fraunces,serif;margin:0;color:var(--ink2);overflow-wrap:anywhere;display:-webkit-box;
+  -webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tt-acts{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tt-acts .play{width:48px;height:48px;border-radius:50%;border:0;background:var(--ink2);color:var(--cr);font-size:16px;
   box-shadow:0 10px 20px -10px #000}
-.acts .cue,.rpm button{border:1px solid rgba(23,19,16,.18);background:transparent;color:var(--ink2);border-radius:999px;
+.tt-acts .cue,.rpm button{border:1px solid rgba(23,19,16,.18);background:transparent;color:var(--ink2);border-radius:999px;
   padding:9px 14px;font-size:13px;font-weight:700}
 .rpm{display:inline-flex;gap:4px}.rpm .on{background:var(--ink2);color:var(--cr);border-color:var(--ink2)}
 .buy{align-self:flex-start;padding:10px 18px;border-radius:999px;background:var(--ac);color:#1a0d06;font-weight:800;
@@ -65,8 +72,9 @@
   position:relative;display:grid;place-items:center}
 .screen p{position:absolute;margin:0;font-size:12px;color:#8d847a;padding:0 16px;text-align:center}
 .screen iframe{position:relative;z-index:1;width:100%;height:100%;border:0}
-.wave-row{grid-area:wave;display:flex;align-items:center;gap:14px;padding:6px 30px 26px}
+.wave-row{grid-area:wave;display:flex;align-items:center;gap:14px;min-height:64px;padding:4px 30px 22px}
 .wave{flex:1;display:flex;align-items:center;gap:2px;height:44px;cursor:pointer}
+.wave:empty{height:4px;border-radius:4px;background:rgba(239,232,220,.12)}
 .wave i{flex:1;border-radius:2px;background:rgba(239,232,220,.18);transition:background .2s}.wave i.on{background:var(--ac)}
 .time{font-size:12px;color:#c9bfb2;font-variant-numeric:tabular-nums;white-space:nowrap}
 .mixer{display:none}
@@ -78,21 +86,31 @@
 .tt-note{max-width:820px}
 /* spin mode: deck B and the mixer are hidden */
 .tt[data-mode=spin] #deckB{display:none}
-/* mix mode: two decks with the crossfader between them, records list below */
+/* mix mode: one grid for both decks, so record, position bar and card of A and B always line up.
+   The decks "dissolve" (display:contents) and their parts are placed in the shared rows. */
 .tt[data-mode=mix]{grid-template-columns:1fr}.tt[data-mode=mix] .tt-side{order:2;border:0;border-top:1px solid rgba(255,255,255,.06)}
-.tt[data-mode=mix] .tt-decks{grid-template-columns:minmax(0,1fr) 120px minmax(0,1fr)}
-.tt[data-mode=mix] .deck{grid-template-columns:1fr;grid-template-areas:"tt" "wave" "info"}
-.tt[data-mode=mix] .rec{width:min(320px,100%)}
-.tt[data-mode=mix] .info{clip-path:none;padding:22px;margin:0 16px 16px;border-radius:20px}
-.tt[data-mode=mix] .screen{max-width:420px}
-.tt[data-mode=mix] .mixer{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+.tt[data-mode=mix] .tt-decks{grid-template-columns:minmax(0,1fr) 150px minmax(0,1fr);grid-template-rows:auto auto 1fr;
+  padding:0 18px 18px}
+.tt[data-mode=mix] .deck{display:contents}
+.tt[data-mode=mix] #deckA>*{grid-column:1}.tt[data-mode=mix] #deckB>*{grid-column:3}
+.tt[data-mode=mix] .tt-platter{grid-row:1;padding:28px 10px 6px}.tt[data-mode=mix] .wave-row{grid-row:2;padding:4px 14px 14px}
+.tt[data-mode=mix] .info{grid-row:3;clip-path:none;padding:20px;margin:0 6px;border-radius:20px}
+.tt[data-mode=mix] .tt-plinth{width:min(360px,100%)}
+.tt[data-mode=mix] .info-head{flex-direction:row;align-items:flex-start;gap:16px}
+.tt[data-mode=mix] .sleeve{width:110px}.tt[data-mode=mix] .t-title{font-size:21px}
+.tt[data-mode=mix] .mixer{grid-column:2;grid-row:1/3;align-self:center;display:flex;flex-direction:column;align-items:center;
+  gap:12px;padding:18px 10px;border-radius:22px;background:#1e1b18;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
   font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8d847a}
-.xfade{width:110px;accent-color:var(--ac)}.xf-labels{display:flex;justify-content:space-between;width:110px;color:#efe8dc}
+.xfade{width:120px;accent-color:var(--ac)}.xf-labels{display:flex;justify-content:space-between;width:120px;color:#efe8dc}
 @media (max-width:980px){.tt{grid-template-columns:1fr}.tt-side{order:2;border-right:0;border-top:1px solid rgba(255,255,255,.06)}
-  .deck{grid-template-columns:1fr;grid-template-areas:"tt" "wave" "info"}
+  .deck{grid-template-columns:1fr;grid-template-rows:auto;grid-template-areas:"tt" "wave" "info"}
   .info{clip-path:none;padding:22px;margin:0 14px 14px;border-radius:20px}
+  .info-head{flex-direction:row;align-items:flex-start;gap:16px}.sleeve{width:110px}
   .screen{max-width:440px;margin-left:auto;margin-right:auto}
-  .tt[data-mode=mix] .tt-decks{grid-template-columns:1fr}.tt[data-mode=mix] .mixer{flex-direction:row;padding:6px 0 10px}}
-@media (max-width:520px){.platter{padding:24px 14px 6px}.wave-row{padding:6px 16px 18px}.side-big{font-size:40px}
-  .tt-bar{flex-wrap:wrap;justify-content:center}}
-@media (prefers-reduced-motion:reduce){.arm{transition:none}}
+  .tt[data-mode=mix] .tt-decks{grid-template-columns:1fr;grid-template-rows:none;padding:0 0 14px}
+  .tt[data-mode=mix] .deck{display:grid}.tt[data-mode=mix] #deckA>*,.tt[data-mode=mix] #deckB>*{grid-column:auto;grid-row:auto}
+  .tt[data-mode=mix] .info{margin:0 14px 14px}
+  .tt[data-mode=mix] .mixer{grid-column:auto;grid-row:auto;flex-direction:row;justify-self:center;margin:4px 0 10px}}
+@media (max-width:520px){.tt-platter{padding:22px 12px 6px}.wave-row{padding:4px 16px 16px}.side-big{font-size:40px}
+  .tt-bar{flex-wrap:wrap;justify-content:center}.sleeve,.tt[data-mode=mix] .sleeve{width:84px}.t-title{font-size:21px}}
+@media (prefers-reduced-motion:reduce){.tt-arm{transition:none}}

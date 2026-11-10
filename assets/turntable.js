@@ -25,8 +25,11 @@
     var t = (item.title || '').replace(/[(\[][^)\]]*(official|video|audio|lyric|visuali[sz]er|remaster|hd|4k|live)[^)\]]*[)\]]/gi, '')
       .replace(/\s+/g, ' ').trim();
     var a = (item.author || '').replace(/vevo$/i, '').replace(/\s*-\s*topic$/i, '').replace(/official/i, '').trim();
+    if (/lyric|music|records|songs|hits|tv$|channel/i.test(a)) a = '';  // a lyrics/upload channel, not the artist
     var parts = t.split(/\s+[-–—]\s+/);
-    if (parts.length > 1) { a = parts[0]; t = parts.slice(1).join(' - '); }
+    // "Lana Del Rey-Diet Mountain Dew": a dash without spaces, but only after a multi-word name (not "Jay-Z")
+    if (parts.length < 2) { var m = t.match(/^(\S+(?:\s+\S+)+?)[-–—](\S.*)$/); if (m && /\s/.test(m[1])) parts = [m[1], m[2]]; }
+    if (parts.length > 1) { a = parts[0].trim(); t = parts.slice(1).join(' - ').trim(); }
     return {artist: a, song: t};
   }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (m) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[m]; }); }
